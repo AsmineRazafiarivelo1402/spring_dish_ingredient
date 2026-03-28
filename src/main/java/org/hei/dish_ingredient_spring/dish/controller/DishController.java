@@ -17,4 +17,5 @@ public class DishController {
     public List<DishEntity> getDishes(){
         return dishService.getDish();
     }
+
 }

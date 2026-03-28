@@ -1,6 +1,5 @@
 package org.hei.dish_ingredient_spring.ingredient.repository;
 
-import org.hei.dish_ingredient_spring.dish.entity.DishIngredientEntity;
 import org.hei.dish_ingredient_spring.ingredient.entity.CategoryEnum;
 import org.hei.dish_ingredient_spring.ingredient.entity.IngredientEntity;
 import org.hei.dish_ingredient_spring.stock.entity.MovementTypeEnum;

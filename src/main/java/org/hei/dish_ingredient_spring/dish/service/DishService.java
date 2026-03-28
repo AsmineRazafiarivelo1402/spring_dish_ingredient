@@ -15,4 +15,5 @@ public class DishService {
     public List<DishEntity> getDish(){
         return dishRepositroy.findDish();
     }
+
 }

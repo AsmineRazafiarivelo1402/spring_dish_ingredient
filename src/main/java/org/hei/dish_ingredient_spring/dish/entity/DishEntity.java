@@ -1,6 +1,7 @@
 package org.hei.dish_ingredient_spring.dish.entity;
 
 import lombok.*;
+import org.hei.dish_ingredient_spring.dishIngredient.entity.DishIngredientEntity;
 
 import java.util.List;
 
