@@ -19,4 +19,8 @@ public class IngredientController {
     public List<IngredientEntity> getIngredients(){
         return ingredientService.getIngredients();
     }
+    @GetMapping("/ingredient/{id}")
+    public List<IngredientEntity> getIngredientById(){
+        throw new RuntimeException("Not Implemented");
+    }
 }

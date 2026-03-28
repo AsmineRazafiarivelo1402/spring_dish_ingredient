@@ -1,9 +1,6 @@
 package org.hei.dish_ingredient_spring.dish.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +8,9 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Setter
+@Getter
+@Builder
 public class DishEntity {
     private Integer id;
     private Double selling_price;
