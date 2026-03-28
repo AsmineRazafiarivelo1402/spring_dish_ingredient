@@ -17,4 +17,8 @@ public class IngredientService {
     public List<IngredientEntity> getIngredients(){
         return ingredientRepository.findIngredient();
     }
+    public IngredientEntity getIngredientById(Integer id){
+
+        return ingredientRepository.findIngredientById(id);
+    }
 }
