@@ -8,10 +8,7 @@ import org.hei.dish_ingredient_spring.ingredient.entity.IngredientEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,4 +87,80 @@ List<DishEntity> listDish = new ArrayList<>();
             throw new RuntimeException(e);
         }
     }
-}
+
+
+
+        public List<DishEntity> findDishFiltered(Double priceUnder, Double priceOver, String name) {
+
+            List<DishEntity> listDish = new ArrayList<>();
+
+            try {
+                Connection connection = dataSource.getConnection();
+
+                String sql = """
+                    select dish.id as dish_id,
+                           dish.name as dish_name,
+                           dish.dish_type,
+                           dish.selling_price as dish_price
+                    from dish
+                    where 1=1
+                    """;
+
+                if (priceUnder != null) {
+                    sql += " AND selling_price < ?";
+                }
+
+                if (priceOver != null) {
+                    sql += " AND selling_price > ?";
+                }
+
+                if (name != null) {
+                    sql += " AND name LIKE ?";
+                }
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                int index = 1;
+
+                if (priceUnder != null) {
+                    preparedStatement.setDouble(index++, priceUnder);
+                }
+
+                if (priceOver != null) {
+                    preparedStatement.setDouble(index++, priceOver);
+                }
+
+                if (name != null) {
+                    preparedStatement.setString(index++, "%" + name + "%");
+                }
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+                    DishEntity dish = new DishEntity();
+
+                    dish.setId(resultSet.getInt("dish_id"));
+                    dish.setName(resultSet.getString("dish_name"));
+                    dish.setDishType(
+                            DishTypeEnum.valueOf(resultSet.getString("dish_type"))
+                    );
+
+                    dish.setSelling_price(
+                            resultSet.getObject("dish_price") == null
+                                    ? null
+                                    : resultSet.getDouble("dish_price")
+                    );
+
+                    listDish.add(dish);
+                }
+
+                return listDish;
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+

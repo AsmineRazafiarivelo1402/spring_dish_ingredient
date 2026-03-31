@@ -2,6 +2,7 @@ package org.hei.dish_ingredient_spring.ingredient.service;
 
 import org.hei.dish_ingredient_spring.ingredient.entity.IngredientEntity;
 import org.hei.dish_ingredient_spring.ingredient.repository.IngredientRepository;
+import org.hei.dish_ingredient_spring.stock.entity.StockMovementEntity;
 import org.hei.dish_ingredient_spring.stock.entity.Unit;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,6 @@ public class IngredientService {
     public IngredientEntity getIngredientStockAtTimeAndUnit(Integer id, Instant temporal, Unit unit) {
         return ingredientRepository.findIngredientStockAtTimeAndUnit(id,temporal,unit);
     }
+
+
 }
