@@ -24,7 +24,6 @@ paths:
         required: true
         schema:
           type: string
-
       responses:
         '200':
           description: Ingredient found
@@ -40,11 +39,36 @@ paths:
           description: list of dishes
           content:
             application/json
-  /ingredients/{id}/stockMovement:
+  /ingredients/{id}/stock:
     get:
-      summary: get stcok of ingredient on given time and unit
+      summary: get stock of ingredient on given time and unit
       parameters:
-        requestParam
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: at
+          required: false
+          description: Instant to see the stock movement
+        - in: query
+          name: unit
+          required: false
+          description: The unit of stock value
+
+
+      responses:
+        '200':
+          description: StockMovement for this ingredient
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StockMovement"
+
+
+
+
 
 
 
@@ -58,6 +82,20 @@ components:
           example: 5
       required:
           - id
+    StockMovement:
+      type: object
+      properties:
+        at:
+          type: string
+        unit:
+          type: string
+          enum:
+            - KG
+            - L
+            - PCS
+        id:
+          type: integer
+          example: 1
 
 
 
