@@ -15,6 +15,42 @@ paths:
           description: A list of ingredients
           content:
             application/json
+  /ingredients/{id}:
+    get:
+      summary: Return one ingredient properties
+      parameters:
+        -in: path
+        name: id
+        required: true
+        schema:
+          type: string
+
+      responses:
+        '200':
+          description: Ingredient found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ingredient"
+components:
+  schemas:
+    Ingredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5
+      required:
+          - id
+
+
+
+
+
+
+
+
+
 
 
 
