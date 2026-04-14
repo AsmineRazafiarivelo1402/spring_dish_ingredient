@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+    title: SPECIFICATION
+    description: This is a specification of ingredient implementation
+    version: "1.0.0"
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /ingredients:
+    get:
+      description: Return a json list content ingredients attributs
+      responses:
+        '200':
+          description: A list of ingredients
+          content:
+            application/json
+
+
+
+
+
+
+
+
