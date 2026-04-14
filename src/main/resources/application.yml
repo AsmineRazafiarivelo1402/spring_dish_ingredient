@@ -32,6 +32,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Ingredient"
+  /dishes:
+    get:
+      summary: get a list of dishes
+      responses:
+        '200':
+          description: list of dishes
+          content:
+            application/json
+  /ingredients/{id}/stockMovement:
+    get:
+      summary: get stcok of ingredient on given time and unit
+      parameters:
+        requestParam
+
+
+
 components:
   schemas:
     Ingredient:
