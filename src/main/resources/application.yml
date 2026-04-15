@@ -86,7 +86,7 @@ paths:
               valid:
                 summary: Example with two ingredients
                 value: [
-                  { "ingredient": { "id": 1 }, "quantity_required": 250, "unit_type": "g" },
+                  { "ingredient": { "id": 1 }, "quantity_required": 250, "unit_type": "KG" },
                   { "ingredient": { "id": 2 }, "quantity_required": 0.5, "unit_type": "L" }
                 ]
       responses:
