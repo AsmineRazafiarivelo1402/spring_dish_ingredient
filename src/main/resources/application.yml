@@ -56,8 +56,6 @@ paths:
           name: unit
           required: false
           description: The unit of stock value
-
-
       responses:
         '200':
           description: StockMovement for this ingredient
@@ -65,6 +63,44 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StockMovement"
+  /dishes/{id}/ingredients:
+    put:
+      summary: Replace all ingredients of a dish
+      description: Attach and detach ingredients in dish (full replacement)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Dish ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/DishIngredient"
+            examples:
+              valid:
+                summary: Example with two ingredients
+                value: [
+                  { "ingredient": { "id": 1 }, "quantity_required": 250, "unit_type": "g" },
+                  { "ingredient": { "id": 2 }, "quantity_required": 0.5, "unit_type": "L" }
+                ]
+      responses:
+        "200":
+          description: Dish ingredients updated successfully
+        "400":
+          description: Bad request - empty ingredients list
+        "404":
+          description: Dish not found
+
+
+
+
+
 
 
 
@@ -96,6 +132,31 @@ components:
         id:
           type: integer
           example: 1
+    DishIngredient:
+      type: object
+      properties:
+          id:
+            type: integer
+            readOnly: true
+          dish:
+            type: object
+            properties:
+              id:
+                type: integer
+          ingredient:
+            type: object
+            required:
+              - id
+            properties:
+              id:
+                type: integer
+          quantity_required:
+            type: number
+            format: double
+            minimum: 0
+          unit_type:
+            type: string
+            enum: [KG,L,PCS]
 
 
 
@@ -108,8 +169,11 @@ components:
 
 
 
-
-
+#    private Integer id;
+#    private DishEntity dish;
+#    private IngredientEntity ingredient;
+#    private double quantity_required;
+#    private Unit unit_tupe;
 
 
 

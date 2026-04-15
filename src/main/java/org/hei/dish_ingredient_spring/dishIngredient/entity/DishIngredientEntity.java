@@ -17,5 +17,5 @@ public class DishIngredientEntity {
     private DishEntity dish;
     private IngredientEntity ingredient;
     private double quantity_required;
-    private Unit unit_tupe;
+    private Unit unit_type;
 }

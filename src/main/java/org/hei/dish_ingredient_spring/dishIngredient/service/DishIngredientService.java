@@ -24,14 +24,12 @@ public class DishIngredientService {
 
         try (Connection conn = dishIngredientRepository.getConnection()) {
             if (!dishIngredientRepository.dishExists(dishId)) {
-                return false; // Plat non trouvé
+                return false;
             }
 
-            // Supprime les associations existantes
             dishIngredientRepository.detachDishIngredient(conn, dishId, dishIngredients);
 
-            // Sauvegarde uniquement les ingrédients existants
-            dishIngredientRepository.saveIngredientByDishIngredient(conn, dishId, dishIngredients);
+
 
             // Ajoute les associations au plat
             dishIngredientRepository.attachDishIngredient(conn, dishId, dishIngredients);
