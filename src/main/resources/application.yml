@@ -19,11 +19,11 @@ paths:
     get:
       summary: Return one ingredient properties
       parameters:
-        -in: path
-        name: id
-        required: true
-        schema:
-          type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: Ingredient found
@@ -31,14 +31,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Ingredient"
-  /dishes:
-    get:
-      summary: get a list of dishes
-      responses:
-        '200':
-          description: list of dishes
+        '404':
+          description: Ingredient not found
           content:
-            application/json
+            application/json:
+              schema:
+                type: string
+              example: "Ingredient.id={1} is not found"
+
   /ingredients/{id}/stock:
     get:
       summary: get stock of ingredient on given time and unit
@@ -47,14 +47,20 @@ paths:
           name: id
           required: true
           schema:
-            type: string
+            type: integer
         - in: query
           name: at
           required: false
+          schema:
+            type: string
+            format: date-time
           description: Instant to see the stock movement
         - in: query
           name: unit
           required: false
+          schema:
+            type: string
+            enum: [ KG, L, PCS ]
           description: The unit of stock value
       responses:
         '200':
@@ -63,6 +69,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StockMovement"
+        '404':
+          description: Ingredient not found or missing parameters
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                ingredientNotFound:
+                  summary: Ingredient not found
+                  value: "Ingredient.id={1} is not found"
+                missingParameters:
+                  summary: Missing query parameters
+                  value: "Either mandatory query parameter `at` or `unit` is not provided."
+  /dishes:
+    get:
+      summary: get a list of dishes
+      responses:
+        '200':
+          description: list of dishes
+          content:
+            application/json
+
   /dishes/{id}/ingredients:
     put:
       summary: Replace all ingredients of a dish
